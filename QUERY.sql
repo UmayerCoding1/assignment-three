@@ -149,3 +149,30 @@ values (501, 1, 101, 'A-12', 'Confirmed', 150.00),
   (503, 2, 101, 'A-13', 'Confirmed', 150.00),
   (504, 2, 101, NULL, NULL, 150.00),
   (505, 3, 102, 'C-20', 'Pending', 120.00);
+-- =========================================================================
+-- QUERY 1: Retrieve all upcoming football matches belonging to the 'Champions League' where the match status is 'Available'.
+-- =========================================================================
+select match_id,
+  fixture,
+  base_ticket_price
+from matches
+where tournament_category = 'Champions League'
+  and match_status = 'Available';
+-- =========================================================================
+-- QUERY 2: Search for all users whose full names start with 'Tanvir' or contain the phrase 'Haque' (case-insensitive).
+-- =========================================================================
+select user_id,
+  full_name,
+  email
+from users
+where full_name ilike 'Tanvir%'
+  or full_name ilike '%Haque%';
+-- =========================================================================
+-- QUERY 3: Retrieve all booking records where the payment status is missing (NULL), replacing the empty result with 'Action Required'.
+-- =========================================================================
+select booking_id,
+  user_id,
+  match_id,
+  coalesce(payment_status, 'Action Required')
+from bookings
+where payment_status is null;
